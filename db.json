@@ -3,12 +3,15 @@
     {
       "id": "1",
       "name": "Interstellar",
-      "rating": 4.5
+      "description": "Space",
+      "earnings": 25000000
     },
     {
       "id": "2",
       "name": "Inception",
-      "rating": 1.0
+      "description": "I forgot",
+      "earnings": 50000000
     }
-  ]
+  ],
+  "books": []
 }

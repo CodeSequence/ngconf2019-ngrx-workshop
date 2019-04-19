@@ -1,11 +1,14 @@
 import { Component } from "@angular/core";
 
 @Component({
-  selector: "ngrx-root",
-  template: `
-    <h1>NgRx Workshop Example</h1>
-    <router-outlet></router-outlet>
-  `,
-  styles: []
+  selector: "app-root",
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'NgRx Workshop';
+  links = [
+    { path: '/movies', icon: 'movie', label: 'Movies'},
+    { path: '/books', icon: 'book', label: 'Books'}
+  ];  
+}

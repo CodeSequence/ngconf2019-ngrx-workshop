@@ -1,4 +1,4 @@
 import * as MovieApiActions from "./movie-api.actions";
-import * as MoviePageActions from "./movie-page.actions";
+import * as MoviesPageActions from "./movies-page.actions";
 
-export { MovieApiActions, MoviePageActions };
+export { MovieApiActions, MoviesPageActions };

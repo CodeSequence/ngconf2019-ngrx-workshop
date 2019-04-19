@@ -1,7 +1,8 @@
 export interface Movie {
   id: string;
   name: string;
-  rating: number;
+  earnings: number;
+  description?: string;
 }
 
-export type MovieRequiredProps = Pick<Movie, "name" | "rating">;
+export type MovieRequiredProps = Pick<Movie, "name"  | "earnings">;

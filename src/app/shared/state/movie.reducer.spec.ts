@@ -1,4 +1,4 @@
-import { MovieApiActions, MoviePageActions } from "src/app/movies/actions";
+import { MovieApiActions, MoviesPageActions } from "src/app/movies/actions";
 import { Movie } from "../models/movie.model";
 import { reducer, initialState } from "./movie.reducer";
 
@@ -10,7 +10,7 @@ describe("Movie Reducer", () => {
   });
 
   it("should load all movies when the API loads them all successfully", () => {
-    const movies: Movie[] = [{ id: "1", name: "Green Lantern", rating: 0 }];
+    const movies: Movie[] = [{ id: "1", name: "Green Lantern", earnings: 0 }];
     const action = MovieApiActions.loadMoviesSuccess({ movies });
 
     const state = reducer(initialState, action);
@@ -19,7 +19,7 @@ describe("Movie Reducer", () => {
   });
 
   it("should add newly created movies to the state", () => {
-    const movie: Movie = { id: "1", name: "Arrival", rating: 4 };
+    const movie: Movie = { id: "1", name: "Arrival", earnings: 100000 };
     const action = MovieApiActions.createMovieSuccess({ movie });
 
     const state = reducer(initialState, action);
@@ -28,9 +28,9 @@ describe("Movie Reducer", () => {
   });
 
   it("should remove movies from the state when they are deleted", () => {
-    const movie: Movie = { id: "1", name: "mother!", rating: 1.5 };
+    const movie: Movie = { id: "1", name: "mother!", earnings: 1000 };
     const firstAction = MovieApiActions.createMovieSuccess({ movie });
-    const secondAction = MoviePageActions.deleteMovie({ movie });
+    const secondAction = MoviesPageActions.deleteMovie({ movie });
 
     const state = [firstAction, secondAction].reduce(reducer, initialState);
 
@@ -38,9 +38,9 @@ describe("Movie Reducer", () => {
   });
 
   it("should roll back a deletion if deleting a movie fails", () => {
-    const movie: Movie = { id: "1", name: "Black Panther", rating: 4 };
+    const movie: Movie = { id: "1", name: "Black Panther", earnings: 10000 };
     const firstAction = MovieApiActions.createMovieSuccess({ movie });
-    const secondAction = MoviePageActions.deleteMovie({ movie });
+    const secondAction = MoviesPageActions.deleteMovie({ movie });
     const thirdAction = MovieApiActions.deleteMovieFailure({ movie });
 
     const state = [firstAction, secondAction, thirdAction].reduce(
@@ -52,10 +52,10 @@ describe("Movie Reducer", () => {
   });
 
   it("should apply changes to a movie when a movie is updated", () => {
-    const movie: Movie = { id: "1", name: "Blade Runner", rating: 2 };
-    const changes = { name: "Blade Runner (Final Cut)", rating: 4.5 };
+    const movie: Movie = { id: "1", name: "Blade Runner", earnings: 120000 };
+    const changes = { name: "Blade Runner (Final Cut)", earnings: 150000 };
     const firstAction = MovieApiActions.createMovieSuccess({ movie });
-    const secondAction = MoviePageActions.updateMovie({ movie, changes });
+    const secondAction = MoviesPageActions.updateMovie({ movie, changes });
 
     const state = [firstAction, secondAction].reduce(reducer, initialState);
 
@@ -66,14 +66,14 @@ describe("Movie Reducer", () => {
     const movie: Movie = {
       id: "1",
       name: "Star Wars: A New Hope",
-      rating: 3.5
+      earnings: 10000000000
     };
     const changes = {
       name: "Star Wars: A New Hope (Special Edition)",
-      rating: 2.5
+      earnings: 12000000000
     };
     const firstAction = MovieApiActions.createMovieSuccess({ movie });
-    const secondAction = MoviePageActions.updateMovie({ movie, changes });
+    const secondAction = MoviesPageActions.updateMovie({ movie, changes });
     const thirdAction = MovieApiActions.updateMovieFailure({ movie });
 
     const state = [firstAction, secondAction, thirdAction].reduce(

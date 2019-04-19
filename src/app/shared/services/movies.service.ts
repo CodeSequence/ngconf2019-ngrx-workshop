@@ -8,16 +8,18 @@ const HEADER = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
 
-@Injectable({ providedIn: "root" })
-export class MovieService {
+@Injectable({
+  providedIn: "root"
+})
+export class MoviesService {
   constructor(private http: HttpClient) {}
 
   all() {
-    return this.http.get(BASE_URL);
+    return this.http.get<Movie[]>(BASE_URL);
   }
 
   load(id: string) {
-    return this.http.get(`${BASE_URL}/${id}`);
+    return this.http.get<Movie>(`${BASE_URL}/${id}`);
   }
 
   create(movieProps: MovieRequiredProps) {

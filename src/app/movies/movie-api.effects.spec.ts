@@ -3,9 +3,9 @@ import { provideMockActions } from "@ngrx/effects/testing";
 import { Action } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { hot, cold } from "jasmine-marbles";
-import { MovieService } from "../shared/services/movie.service";
+import { MoviesService } from "../shared/services/movies.service";
 import { Movie } from "../shared/models/movie.model";
-import { MoviePageActions, MovieApiActions } from "./actions";
+import { MoviesPageActions, MovieApiActions } from "./actions";
 import { MovieApiEffects } from "./movie-api.effects";
 
 describe("Movie API Effects", () => {
@@ -20,7 +20,7 @@ describe("Movie API Effects", () => {
   const mockMovie: Movie = {
     id: "test",
     name: "Mock Movie",
-    rating: 1
+    earnings: 25,
   };
 
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe("Movie API Effects", () => {
         MovieApiEffects,
         provideMockActions(() => actions$),
         {
-          provide: MovieService,
+          provide: MoviesService,
           useFactory() {
             mockMovieService = {
               create: jest.fn(),
@@ -47,10 +47,10 @@ describe("Movie API Effects", () => {
   });
 
   it("should use the API to create a movie", () => {
-    const inputAction = MoviePageActions.createMovie({
+    const inputAction = MoviesPageActions.createMovie({
       movie: {
         name: mockMovie.name,
-        rating: mockMovie.rating
+        earnings: 25,
       }
     });
     const outputAction = MovieApiActions.createMovieSuccess({

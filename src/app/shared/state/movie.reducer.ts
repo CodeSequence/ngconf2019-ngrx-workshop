@@ -1,47 +1,52 @@
 import { createEntityAdapter, EntityState } from "@ngrx/entity";
 import { Movie } from "../models/movie.model";
-import { MovieApiActions, MoviePageActions } from "src/app/movies/actions";
+import { MovieApiActions, MoviesPageActions } from "src/app/movies/actions";
 
 const adapter = createEntityAdapter({
   selectId: (movie: Movie) => movie.id,
   sortComparer: (a: Movie, b: Movie) =>
-    a.name.localeCompare(b.name, null, { numeric: true })
+    a.name.localeCompare(b.name)
 });
 
-export interface State extends EntityState<Movie> {}
+export interface State extends EntityState<Movie> {
+  activeMovieId: string | null;
+}
 
-export const initialState: State = adapter.getInitialState();
+export const initialState: State = adapter.getInitialState({
+  activeMovieId: null
+});
 
 export function reducer(
   state: State = initialState,
-  action: MovieApiActions.Union | MoviePageActions.Union
+  action: MovieApiActions.Union | MoviesPageActions.Union
 ): State {
   switch (action.type) {
+    case MoviesPageActions.enter.type: {
+      return {...state, activeMovieId: null};
+    }
+
+    case MoviesPageActions.selectMovie.type: {
+      return {...state, activeMovieId: action.movieId};
+    }
+
+    case MoviesPageActions.clearSelectedMovie.type: {
+      return {...state, activeMovieId: null};
+    }    
+
     case MovieApiActions.loadMoviesSuccess.type: {
       return adapter.addAll(action.movies, state);
     }
-
+    
     case MovieApiActions.createMovieSuccess.type: {
-      return adapter.addOne(action.movie, state);
+      return adapter.addOne(action.movie, {...state, activeMovieId: action.movie.id});
+    }
+    
+    case MovieApiActions.updateMovieSuccess.type: {
+      return adapter.updateOne({id: action.movie.id, changes: action.movie}, {...state, activeMovieId: action.movie.id});
     }
 
-    case MoviePageActions.deleteMovie.type: {
-      return adapter.removeOne(action.movie.id, state);
-    }
-
-    case MovieApiActions.deleteMovieFailure.type: {
-      return adapter.addOne(action.movie, state);
-    }
-
-    case MoviePageActions.updateMovie.type: {
-      return adapter.updateOne(
-        { id: action.movie.id, changes: action.changes },
-        state
-      );
-    }
-
-    case MovieApiActions.updateMovieFailure.type: {
-      return adapter.upsertOne(action.movie, state);
+    case MovieApiActions.deleteMovieSuccess.type: {
+      return adapter.removeOne(action.movieId, {...state, activeMovieId: null});
     }
 
     default: {
@@ -51,3 +56,4 @@ export function reducer(
 }
 
 export const { selectEntities, selectAll } = adapter.getSelectors();
+export const selectActiveMovieId = (state: State) => state.activeMovieId;
