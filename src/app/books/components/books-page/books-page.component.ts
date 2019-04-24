@@ -15,17 +15,13 @@ import { BooksPageActions } from "../../actions";
 })
 export class BooksPageComponent implements OnInit {
   books$: Observable<Book[]>;
-  currentBook: Book;
-  total: number;
+  activeBook$: Observable<Book>;
+  total$: Observable<number>;
 
   constructor(private store: Store<fromRoot.State>) {
-    this.books$ = this.store.pipe(
-      select(state => state.books),
-      map((booksState: any) =>
-        booksState.ids.map(id => booksState.entities[id])
-      ),
-      tap(books => this.updateTotals(books))
-    );
+    this.books$ = this.store.pipe(select(fromRoot.selectAllBooks));
+    this.activeBook$ = this.store.pipe(select(fromRoot.selectActiveBook));
+    this.total$ = this.store.pipe(select(fromRoot.selectBookEarningsTotals));
   }
 
   ngOnInit() {
@@ -37,15 +33,8 @@ export class BooksPageComponent implements OnInit {
     this.store.dispatch(new BooksPageActions.Enter());
   }
 
-  updateTotals(books: Book[]) {
-    this.total = books.reduce((total, book) => {
-      return total + parseInt(`${book.earnings}`, 10) || 0;
-    }, 0);
-  }
-
   onSelect(book: Book) {
     this.store.dispatch(new BooksPageActions.SelectBook(book.id));
-    this.currentBook = book;
   }
 
   onCancel() {
@@ -54,7 +43,6 @@ export class BooksPageComponent implements OnInit {
 
   removeSelectedBook() {
     this.store.dispatch(new BooksPageActions.ClearSelectedBook());
-    this.currentBook = null;
   }
 
   onSave(book: Book) {

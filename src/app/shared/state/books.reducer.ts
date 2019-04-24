@@ -1,6 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { Book } from "src/app/shared/models/book.model";
 import { BooksPageActions } from "src/app/books/actions";
+import { createSelector } from "@ngrx/store";
 
 export const initialBooks: Book[] = [
   {
@@ -72,3 +73,18 @@ export function reducer(
       return state;
   }
 }
+
+export const { selectAll, selectEntities } = adapter.getSelectors();
+export const selectActiveBookId = (state: State) => state.activeBookId;
+export const selectActiveBook = createSelector(
+  selectEntities,
+  selectActiveBookId,
+  (entities, bookId) => (bookId ? entities[bookId] : null)
+);
+export const selectEarningsTotals = createSelector(
+  selectAll,
+  books =>
+    books.reduce((total, book) => {
+      return total + parseInt(`${book.earnings}`, 10) || 0;
+    }, 0)
+);

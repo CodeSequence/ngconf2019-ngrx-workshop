@@ -43,3 +43,20 @@ export const selectMoviesEarningsTotal = createSelector(
   selectMovieState,
   fromMovies.selectEarningsTotal
 );
+
+export const selectBooksState = (state: State) => state.books;
+
+export const selectAllBooks = createSelector(
+  selectBooksState,
+  fromBooks.selectAll
+);
+
+export const selectActiveBook = createSelector(
+  selectBooksState,
+  fromBooks.selectActiveBook
+);
+
+export const selectBookEarningsTotals = createSelector(
+  selectBooksState,
+  fromBooks.selectEarningsTotals
+);
