@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { Book } from "src/app/shared/models/book.model";
-import { BooksPageActions } from "src/app/books/actions";
+import { BooksPageActions, BooksApiActions } from "src/app/books/actions";
 import { createSelector } from "@ngrx/store";
 
 export const initialBooks: Book[] = [
@@ -36,11 +36,11 @@ export const initialState = adapter.getInitialState({
 
 export function reducer(
   state = initialState,
-  action: BooksPageActions.BooksActions
+  action: BooksPageActions.BooksActions | BooksApiActions.BooksApiActions
 ): State {
   switch (action.type) {
-    case BooksPageActions.BooksActionTypes.Enter:
-      return adapter.addAll(initialBooks, state);
+    case BooksApiActions.BooksApiActionTypes.BooksLoaded:
+      return adapter.addAll(action.books, state);
 
     case BooksPageActions.BooksActionTypes.SelectBook:
       return {

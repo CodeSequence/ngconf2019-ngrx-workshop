@@ -5,7 +5,6 @@ import { Book } from "src/app/shared/models/book.model";
 import { Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import * as fromRoot from "src/app/shared/state";
-import { map, tap } from "rxjs/operators";
 import { BooksPageActions } from "../../actions";
 
 @Component({
