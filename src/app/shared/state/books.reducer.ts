@@ -1,5 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { Book } from "src/app/shared/models/book.model";
+import { BooksPageActions } from "src/app/books/actions";
 
 const initialBooks: Book[] = [
   {
@@ -40,29 +41,32 @@ export const initialState = {
   books: initialBooks
 };
 
-export function reducer(state = initialState, action: any): State {
+export function reducer(
+  state = initialState,
+  action: BooksPageActions.BooksActions
+): State {
   switch (action.type) {
-    case "select":
+    case BooksPageActions.BooksActionTypes.SelectBook:
       return {
         activeBookId: action.bookId,
         books: state.books
       };
-    case "clear select":
+    case BooksPageActions.BooksActionTypes.ClearSelectedBook:
       return {
         activeBookId: null,
         books: state.books
       };
-    case "create":
+    case BooksPageActions.BooksActionTypes.CreateBook:
       return {
         activeBookId: state.activeBookId,
         books: createBook(state.books, action.book)
       };
-    case "update":
+    case BooksPageActions.BooksActionTypes.UpdateBook:
       return {
         activeBookId: state.activeBookId,
         books: updateBook(state.books, action.book)
       };
-    case "delete":
+    case BooksPageActions.BooksActionTypes.DeleteBook:
       return {
         activeBookId: null,
         books: deleteBook(state.books, action.book)

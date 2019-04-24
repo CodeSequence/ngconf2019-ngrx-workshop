@@ -5,7 +5,8 @@ import { Book } from "src/app/shared/models/book.model";
 import { Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import * as fromRoot from "src/app/shared/state";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
+import { BooksPageActions } from "../../actions";
 
 @Component({
   selector: "app-books",
@@ -20,7 +21,8 @@ export class BooksPageComponent implements OnInit {
   constructor(private store: Store<fromRoot.State>) {
     this.books$ = this.store.pipe(
       select(state => state.books),
-      map(booksState => booksState.books)
+      map(booksState => booksState.books),
+      tap(books => this.updateTotals(books))
     );
   }
 
@@ -40,7 +42,7 @@ export class BooksPageComponent implements OnInit {
   }
 
   onSelect(book: Book) {
-    this.store.dispatch({ type: "select", bookId: book.id });
+    this.store.dispatch(new BooksPageActions.SelectBook(book.id));
     this.currentBook = book;
   }
 
@@ -49,7 +51,7 @@ export class BooksPageComponent implements OnInit {
   }
 
   removeSelectedBook() {
-    this.store.dispatch({ type: "clear select" });
+    this.store.dispatch(new BooksPageActions.ClearSelectedBook());
     this.currentBook = null;
   }
 
@@ -62,14 +64,14 @@ export class BooksPageComponent implements OnInit {
   }
 
   saveBook(book: Book) {
-    this.store.dispatch({ type: "create", book });
+    this.store.dispatch(new BooksPageActions.CreateBook(book));
   }
 
   updateBook(book: Book) {
-    this.store.dispatch({ type: "update", book });
+    this.store.dispatch(new BooksPageActions.UpdateBook(book));
   }
 
   onDelete(book: Book) {
-    this.store.dispatch({ type: "delete", book });
+    this.store.dispatch(new BooksPageActions.DeleteBook(book));
   }
 }
