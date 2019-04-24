@@ -2,7 +2,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { Book } from "src/app/shared/models/book.model";
 import { BooksPageActions } from "src/app/books/actions";
 
-const initialBooks: Book[] = [
+export const initialBooks: Book[] = [
   {
     id: "1",
     name: "Fellowship of the Ring",
@@ -23,54 +23,51 @@ const initialBooks: Book[] = [
   }
 ];
 
-const createBook = (books: Book[], book: Book) => [...books, book];
-const updateBook = (books: Book[], book: Book) =>
-  books.map(w => {
-    return w.id === book.id ? Object.assign({}, book) : w;
-  });
-const deleteBook = (books: Book[], book: Book) =>
-  books.filter(w => book.id !== w.id);
-
-export interface State {
+export interface State extends EntityState<Book> {
   activeBookId: string | null;
-  books: Book[];
 }
 
-export const initialState = {
-  activeBookId: null,
-  books: initialBooks
-};
+export const adapter = createEntityAdapter<Book>();
+
+export const initialState = adapter.getInitialState({
+  activeBookId: null
+});
 
 export function reducer(
   state = initialState,
   action: BooksPageActions.BooksActions
 ): State {
   switch (action.type) {
+    case BooksPageActions.BooksActionTypes.Enter:
+      return adapter.addAll(initialBooks, state);
+
     case BooksPageActions.BooksActionTypes.SelectBook:
       return {
-        activeBookId: action.bookId,
-        books: state.books
+        ...state,
+        activeBookId: action.bookId
       };
+
     case BooksPageActions.BooksActionTypes.ClearSelectedBook:
       return {
-        activeBookId: null,
-        books: state.books
+        ...state,
+        activeBookId: null
       };
+
     case BooksPageActions.BooksActionTypes.CreateBook:
-      return {
-        activeBookId: state.activeBookId,
-        books: createBook(state.books, action.book)
-      };
+      return adapter.addOne(action.book, state);
+
     case BooksPageActions.BooksActionTypes.UpdateBook:
-      return {
-        activeBookId: state.activeBookId,
-        books: updateBook(state.books, action.book)
-      };
+      return adapter.updateOne(
+        { id: action.book.id, changes: action.book },
+        { ...state, activeBookId: action.book.id }
+      );
+
     case BooksPageActions.BooksActionTypes.DeleteBook:
-      return {
-        activeBookId: null,
-        books: deleteBook(state.books, action.book)
-      };
+      return adapter.removeOne(action.book.id, {
+        ...state,
+        activeBookId: null
+      });
+
     default:
       return state;
   }

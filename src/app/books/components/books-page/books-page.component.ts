@@ -21,7 +21,9 @@ export class BooksPageComponent implements OnInit {
   constructor(private store: Store<fromRoot.State>) {
     this.books$ = this.store.pipe(
       select(state => state.books),
-      map(booksState => booksState.books),
+      map((booksState: any) =>
+        booksState.ids.map(id => booksState.entities[id])
+      ),
       tap(books => this.updateTotals(books))
     );
   }
@@ -32,7 +34,7 @@ export class BooksPageComponent implements OnInit {
   }
 
   getBooks() {
-    // Pending
+    this.store.dispatch(new BooksPageActions.Enter());
   }
 
   updateTotals(books: Book[]) {
