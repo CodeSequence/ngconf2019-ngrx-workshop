@@ -3,17 +3,31 @@ import { Component, OnInit } from "@angular/core";
 import { Book } from "src/app/shared/models/book.model";
 import { BooksService } from "src/app/shared/services/book.service";
 
+import { Observable } from "rxjs";
+import { Store, select } from "@ngrx/store";
+import * as fromRoot from "src/app/shared/state";
+import { map } from "rxjs/operators";
+
 @Component({
   selector: "app-books",
   templateUrl: "./books-page.component.html",
   styleUrls: ["./books-page.component.css"]
 })
 export class BooksPageComponent implements OnInit {
+  books$: Observable<Book[]>;
   books: Book[];
   currentBook: Book;
   total: number;
 
-  constructor(private booksService: BooksService) {}
+  constructor(
+    private booksService: BooksService,
+    private store: Store<fromRoot.State>
+  ) {
+    this.books$ = this.store.pipe(
+      select(state => state.books),
+      map(booksState => booksState.books)
+    );
+  }
 
   ngOnInit() {
     this.getBooks();

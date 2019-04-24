@@ -29,3 +29,20 @@ const updateBook = (books: Book[], book: Book) =>
   });
 const deleteBook = (books: Book[], book: Book) =>
   books.filter(w => book.id !== w.id);
+
+export interface State {
+  activeBookId: string | null;
+  books: Book[];
+}
+
+export const initialState = {
+  activeBookId: null,
+  books: initialBooks
+};
+
+export function reducer(state = initialState, action: any): State {
+  switch (action.type) {
+    default:
+      return state;
+  }
+}

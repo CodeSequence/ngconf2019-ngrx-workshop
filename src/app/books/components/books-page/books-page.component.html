@@ -3,7 +3,7 @@
     <app-books-total [total]="total"> </app-books-total>
 
     <app-books-list
-      [books]="books"
+      [books]="books$ | async"
       (select)="onSelect($event)"
       (delete)="onDelete($event)"
     >
