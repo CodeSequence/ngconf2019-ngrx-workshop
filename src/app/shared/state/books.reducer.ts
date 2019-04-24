@@ -42,6 +42,31 @@ export const initialState = {
 
 export function reducer(state = initialState, action: any): State {
   switch (action.type) {
+    case "select":
+      return {
+        activeBookId: action.bookId,
+        books: state.books
+      };
+    case "clear select":
+      return {
+        activeBookId: null,
+        books: state.books
+      };
+    case "create":
+      return {
+        activeBookId: state.activeBookId,
+        books: createBook(state.books, action.book)
+      };
+    case "update":
+      return {
+        activeBookId: state.activeBookId,
+        books: updateBook(state.books, action.book)
+      };
+    case "delete":
+      return {
+        activeBookId: null,
+        books: deleteBook(state.books, action.book)
+      };
     default:
       return state;
   }
