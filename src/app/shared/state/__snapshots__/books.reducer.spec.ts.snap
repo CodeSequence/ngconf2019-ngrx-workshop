@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Books Reducer should add a newly created book to the state 1`] = `
+Object {
+  "activeBookId": "1",
+  "entities": Object {
+    "1": Object {
+      "earnings": 200000000,
+      "id": "1",
+      "name": "Forrest Gump",
+    },
+  },
+  "ids": Array [
+    "1",
+  ],
+}
+`;
+
+exports[`Books Reducer should load all books when the API loads them all successfully 1`] = `
+Object {
+  "activeBookId": null,
+  "entities": Object {
+    "1": Object {
+      "earnings": 1000000,
+      "id": "1",
+      "name": "Castaway",
+    },
+  },
+  "ids": Array [
+    "1",
+  ],
+}
+`;
+
+exports[`Books Reducer should remove books from the state when they are deleted 1`] = `
+Object {
+  "activeBookId": null,
+  "entities": Object {},
+  "ids": Array [],
+}
+`;
