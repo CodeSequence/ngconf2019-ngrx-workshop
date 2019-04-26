@@ -39,34 +39,34 @@ export function reducer(
   action: BooksPageActions.BooksActions | BooksApiActions.BooksApiActions
 ): State {
   switch (action.type) {
-    case BooksApiActions.BooksApiActionTypes.BooksLoaded:
+    case BooksApiActions.booksLoaded.type:
       return adapter.addAll(action.books, state);
 
-    case BooksPageActions.BooksActionTypes.SelectBook:
+    case BooksPageActions.selectBook.type:
       return {
         ...state,
         activeBookId: action.bookId
       };
 
-    case BooksPageActions.BooksActionTypes.ClearSelectedBook:
+    case BooksPageActions.clearSelectedBook.type:
       return {
         ...state,
         activeBookId: null
       };
 
-    case BooksApiActions.BooksApiActionTypes.BookCreated:
+    case BooksApiActions.bookCreated.type:
       return adapter.addOne(action.book, {
         ...state,
         activeBookId: action.book.id
       });
 
-    case BooksApiActions.BooksApiActionTypes.BookUpdated:
+    case BooksApiActions.bookUpdated.type:
       return adapter.updateOne(
         { id: action.book.id, changes: action.book },
         { ...state, activeBookId: action.book.id }
       );
 
-    case BooksApiActions.BooksApiActionTypes.BookDeleted:
+    case BooksApiActions.bookDeleted.type:
       return adapter.removeOne(action.book.id, {
         ...state,
         activeBookId: null

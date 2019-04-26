@@ -1,51 +1,37 @@
-import { Book } from "src/app/shared/models/book.model";
-import { Action } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
+import { BookRequiredProps, Book } from "src/app/shared/models/book.model";
 
-export enum BooksActionTypes {
-  Enter = "[Books Page] Enter",
-  SelectBook = "[Books Page] Select Book",
-  ClearSelectedBook = "[Books Page] Clear Selected Book",
-  CreateBook = "[Books Page] Create Book",
-  UpdateBook = "[Books Page] Update Book",
-  DeleteBook = "[Books Page] Delete Book"
-}
+export const enter = createAction("[Books Page] Enter");
 
-export class Enter implements Action {
-  readonly type = BooksActionTypes.Enter;
-}
+export const selectBook = createAction(
+  "[Books Page] Select Book",
+  props<{ bookId: string }>()
+);
 
-export class SelectBook implements Action {
-  readonly type = BooksActionTypes.SelectBook;
+export const clearSelectedBook = createAction(
+  "[Books Page] Clear Selected Book"
+);
 
-  constructor(public bookId: string) {}
-}
+export const createBook = createAction(
+  "[Books Page] Create Book",
+  props<{ book: BookRequiredProps }>()
+);
 
-export class ClearSelectedBook implements Action {
-  readonly type = BooksActionTypes.ClearSelectedBook;
-}
+export const updateBook = createAction(
+  "[Books Page] Update Book",
+  props<{ book: Book; changes: BookRequiredProps }>()
+);
 
-export class CreateBook implements Action {
-  readonly type = BooksActionTypes.CreateBook;
+export const deleteBook = createAction(
+  "[Books Page] Delete Book",
+  props<{ book: Book }>()
+);
 
-  constructor(public book: Book) {}
-}
-
-export class UpdateBook implements Action {
-  readonly type = BooksActionTypes.UpdateBook;
-
-  constructor(public book: Book) {}
-}
-
-export class DeleteBook implements Action {
-  readonly type = BooksActionTypes.DeleteBook;
-
-  constructor(public book: Book) {}
-}
-
-export type BooksActions =
-  | Enter
-  | SelectBook
-  | ClearSelectedBook
-  | CreateBook
-  | UpdateBook
-  | DeleteBook;
+export type BooksActions = ReturnType<
+  | typeof enter
+  | typeof selectBook
+  | typeof clearSelectedBook
+  | typeof createBook
+  | typeof updateBook
+  | typeof deleteBook
+>;

@@ -29,11 +29,11 @@ export class BooksPageComponent implements OnInit {
   }
 
   getBooks() {
-    this.store.dispatch(new BooksPageActions.Enter());
+    this.store.dispatch(BooksPageActions.enter());
   }
 
   onSelect(book: Book) {
-    this.store.dispatch(new BooksPageActions.SelectBook(book.id));
+    this.store.dispatch(BooksPageActions.selectBook({ bookId: book.id }));
   }
 
   onCancel() {
@@ -41,7 +41,7 @@ export class BooksPageComponent implements OnInit {
   }
 
   removeSelectedBook() {
-    this.store.dispatch(new BooksPageActions.ClearSelectedBook());
+    this.store.dispatch(BooksPageActions.clearSelectedBook());
   }
 
   onSave(book: Book) {
@@ -53,14 +53,14 @@ export class BooksPageComponent implements OnInit {
   }
 
   saveBook(book: Book) {
-    this.store.dispatch(new BooksPageActions.CreateBook(book));
+    this.store.dispatch(BooksPageActions.createBook({ book }));
   }
 
   updateBook(book: Book) {
-    this.store.dispatch(new BooksPageActions.UpdateBook(book));
+    this.store.dispatch(BooksPageActions.updateBook({ book, changes: book }));
   }
 
   onDelete(book: Book) {
-    this.store.dispatch(new BooksPageActions.DeleteBook(book));
+    this.store.dispatch(BooksPageActions.deleteBook({ book }));
   }
 }

@@ -15,10 +15,10 @@ import { EMPTY } from "rxjs";
 export class BooksApiEffects {
   @Effect()
   loadBooks$ = this.actions$.pipe(
-    ofType(BooksPageActions.BooksActionTypes.Enter),
+    ofType(BooksPageActions.enter.type),
     exhaustMap(() =>
       this.booksService.all().pipe(
-        map(books => new BooksApiActions.BooksLoaded(books)),
+        map(books => BooksApiActions.booksLoaded({ books })),
         catchError(() => EMPTY)
       )
     )
@@ -26,10 +26,10 @@ export class BooksApiEffects {
 
   @Effect()
   createBook$ = this.actions$.pipe(
-    ofType(BooksPageActions.BooksActionTypes.CreateBook),
+    ofType(BooksPageActions.createBook.type),
     mergeMap(action =>
       this.booksService.create(action.book).pipe(
-        map(book => new BooksApiActions.BookCreated(book)),
+        map(book => BooksApiActions.bookCreated({ book })),
         catchError(() => EMPTY)
       )
     )
@@ -37,10 +37,10 @@ export class BooksApiEffects {
 
   @Effect()
   updateBook$ = this.actions$.pipe(
-    ofType(BooksPageActions.BooksActionTypes.UpdateBook),
+    ofType(BooksPageActions.updateBook.type),
     concatMap(action =>
       this.booksService.update(action.book.id, action.book).pipe(
-        map(book => new BooksApiActions.BookUpdated(book)),
+        map(book => BooksApiActions.bookUpdated({ book })),
         catchError(() => EMPTY)
       )
     )
@@ -48,10 +48,10 @@ export class BooksApiEffects {
 
   @Effect()
   deleteBook$ = this.actions$.pipe(
-    ofType(BooksPageActions.BooksActionTypes.DeleteBook),
+    ofType(BooksPageActions.deleteBook.type),
     mergeMap(action =>
       this.booksService.delete(action.book.id).pipe(
-        map(() => new BooksApiActions.BookDeleted(action.book)),
+        map(() => BooksApiActions.bookDeleted({ book: action.book })),
         catchError(() => EMPTY)
       )
     )
