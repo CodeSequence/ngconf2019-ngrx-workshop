@@ -5,15 +5,16 @@
 }
 
 .nav-link {
-  color: rgba(0,0,0,.54);
+  color: rgba(0, 0, 0, 0.54);
   display: flex;
-  align-items:center;
+  align-items: center;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
 mat-toolbar {
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
   z-index: 1;
 }
 
@@ -22,7 +23,7 @@ mat-toolbar > .mat-mini-fab {
 }
 
 mat-sidenav {
-  box-shadow: 3px 0 6px rgba(0,0,0,.24);
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.24);
   width: 200px;
 }
 

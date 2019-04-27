@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Book } from 'src/app/shared/models/book.model';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Book } from "src/app/shared/models/book.model";
 
 @Component({
-  selector: 'app-books-list',
-  templateUrl: './books-list.component.html',
-  styleUrls: ['./books-list.component.css']
+  selector: "app-books-list",
+  templateUrl: "./books-list.component.html",
+  styleUrls: ["./books-list.component.css"]
 })
 export class BooksListComponent {
   @Input() books: Book[];

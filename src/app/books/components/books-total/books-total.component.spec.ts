@@ -1,22 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { BooksTotalComponent } from './books-total.component';
-import { MaterialModule } from 'src/app/material.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BooksTotalComponent } from "./books-total.component";
+import { MaterialModule } from "src/app/material.module";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
-describe('BooksTotalComponent', () => {
+describe("BooksTotalComponent", () => {
   let component: BooksTotalComponent;
   let fixture: ComponentFixture<BooksTotalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MaterialModule,
-        NoopAnimationsModule
-      ],
-      declarations: [ BooksTotalComponent ]
-    })
-    .compileComponents();
+      imports: [MaterialModule, NoopAnimationsModule],
+      declarations: [BooksTotalComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -25,7 +21,7 @@ describe('BooksTotalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

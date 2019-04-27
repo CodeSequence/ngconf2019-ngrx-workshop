@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { Book } from 'src/app/shared/models/book.model';
-import { BooksService } from 'src/app/shared/services/book.service';
+import { Book } from "src/app/shared/models/book.model";
+import { BooksService } from "src/app/shared/services/book.service";
 
 @Component({
-  selector: 'app-books',
-  templateUrl: './books-page.component.html',
-  styleUrls: ['./books-page.component.css']
+  selector: "app-books",
+  templateUrl: "./books-page.component.html",
+  styleUrls: ["./books-page.component.css"]
 })
 export class BooksPageComponent implements OnInit {
   books: Book[];
@@ -21,11 +21,10 @@ export class BooksPageComponent implements OnInit {
   }
 
   getBooks() {
-    this.booksService.all()
-      .subscribe(books => {
-        this.books = books;
-        this.updateTotals(books);
-      });
+    this.booksService.all().subscribe(books => {
+      this.books = books;
+      this.updateTotals(books);
+    });
   }
 
   updateTotals(books: Book[]) {
@@ -44,7 +43,7 @@ export class BooksPageComponent implements OnInit {
 
   removeSelectedBook() {
     this.currentBook = null;
-  }  
+  }
 
   onSave(book: Book) {
     if (!book.id) {
@@ -55,26 +54,23 @@ export class BooksPageComponent implements OnInit {
   }
 
   saveBook(book: Book) {
-    this.booksService.create(book)
-      .subscribe(() => {
-        this.getBooks();
-        this.removeSelectedBook();
-      });
+    this.booksService.create(book).subscribe(() => {
+      this.getBooks();
+      this.removeSelectedBook();
+    });
   }
 
   updateBook(book: Book) {
-    this.booksService.update(book.id, book)
-      .subscribe(() => {
-        this.getBooks();
-        this.removeSelectedBook();
-      });
+    this.booksService.update(book.id, book).subscribe(() => {
+      this.getBooks();
+      this.removeSelectedBook();
+    });
   }
 
   onDelete(book: Book) {
-    this.booksService.delete(book.id)
-      .subscribe(() => {
-        this.getBooks();
-        this.removeSelectedBook();
-      });
+    this.booksService.delete(book.id).subscribe(() => {
+      this.getBooks();
+      this.removeSelectedBook();
+    });
   }
 }

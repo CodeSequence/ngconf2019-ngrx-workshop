@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 html {
   height: 100%;
@@ -45,8 +45,8 @@ mat-sidenav a {
   font-weight: 400;
   line-height: 47px;
   text-decoration: none;
-  -webkit-transition: all .3s;
-  transition: all .3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
   padding: 0 16px;
   position: relative;
 }
@@ -66,7 +66,7 @@ table {
   border-spacing: 0;
   margin: 0 0 32px;
   width: 100%;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .24), 0 0 2px rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12);
 }
 
 th {
@@ -74,13 +74,13 @@ th {
   font-weight: 400;
   padding: 13px 32px;
   text-align: left;
-  color: rgba(0, 0, 0, .54);
-  background: rgba(0, 0, 0, .03);
+  color: rgba(0, 0, 0, 0.54);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 td {
-  color: rgba(0, 0, 0, .54);
-  border: 1px solid rgba(0, 0, 0, .03);
+  color: rgba(0, 0, 0, 0.54);
+  border: 1px solid rgba(0, 0, 0, 0.03);
   font-weight: 400;
   padding: 8px 30px;
 }

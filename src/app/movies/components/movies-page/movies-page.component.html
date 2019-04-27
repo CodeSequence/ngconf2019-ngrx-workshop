@@ -1,19 +1,20 @@
 <div class="container">
   <div class="col-50">
-    <app-movies-total
-      [total]="total$ | async">
-    </app-movies-total>
+    <app-movies-total [total]="total$ | async"> </app-movies-total>
 
     <app-movies-list
       [movies]="movies$ | async"
       (select)="onSelect($event)"
-      (delete)="onDelete($event)">
+      (delete)="onDelete($event)"
+    >
     </app-movies-list>
   </div>
 
-  <app-movie-detail class="col-50"
-    [movie]="currentMovie$ | async"
+  <app-movie-detail
+    class="col-50"
+    [movie]="activeMovie$ | async"
     (save)="onSave($event)"
-    (cancel)="onCancel()">
+    (cancel)="onCancel()"
+  >
   </app-movie-detail>
 </div>

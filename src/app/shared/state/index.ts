@@ -31,13 +31,12 @@ export const selectActiveMovieId = createSelector(
   fromMovies.selectActiveMovieId
 );
 
-export const selectCurrentMovie = createSelector(
-  selectMovieEntities,
-  selectActiveMovieId,
-  (movies, activeMovieId) => activeMovieId && movies[activeMovieId]
+export const selectActiveMovie = createSelector(
+  selectMovieState,
+  fromMovies.selectActiveMovie
 );
 
 export const selectMoviesEarningsTotal = createSelector(
-  selectMovies,
-  movies => movies.reduce((total, movie) => total + parseInt(`${movie.earnings}`, 10) || 0, 0)
+  selectMovieState,
+  fromMovies.selectEarningsTotal
 );

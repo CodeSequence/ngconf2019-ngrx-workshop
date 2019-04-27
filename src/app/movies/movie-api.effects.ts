@@ -1,13 +1,18 @@
 import { Injectable } from "@angular/core";
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { mergeMap, map, catchError, concatMap } from "rxjs/operators";
+import {
+  mergeMap,
+  map,
+  catchError,
+  concatMap,
+  exhaustMap
+} from "rxjs/operators";
 import { MovieApiActions, MoviesPageActions } from "./actions";
 import { MoviesService } from "../shared/services/movies.service";
 
 @Injectable()
 export class MovieApiEffects {
-
   constructor(
     private actions$: Actions<MoviesPageActions.Union>,
     private movieService: MoviesService
@@ -15,7 +20,7 @@ export class MovieApiEffects {
 
   @Effect() enterMoviesPage$ = this.actions$.pipe(
     ofType(MoviesPageActions.enter.type),
-    mergeMap(() =>
+    exhaustMap(() =>
       this.movieService.all().pipe(
         map(movies => MovieApiActions.loadMoviesSuccess({ movies })),
         catchError(() => of(MovieApiActions.loadMoviesFailure()))

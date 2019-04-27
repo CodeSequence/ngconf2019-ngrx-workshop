@@ -5,4 +5,4 @@ export interface Movie {
   description?: string;
 }
 
-export type MovieRequiredProps = Pick<Movie, "name"  | "earnings">;
+export type MovieRequiredProps = Pick<Movie, "name" | "earnings">;

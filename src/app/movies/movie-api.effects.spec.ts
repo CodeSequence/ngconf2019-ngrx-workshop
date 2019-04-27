@@ -20,7 +20,7 @@ describe("Movie API Effects", () => {
   const mockMovie: Movie = {
     id: "test",
     name: "Mock Movie",
-    earnings: 25,
+    earnings: 25
   };
 
   beforeEach(() => {
@@ -50,7 +50,7 @@ describe("Movie API Effects", () => {
     const inputAction = MoviesPageActions.createMovie({
       movie: {
         name: mockMovie.name,
-        earnings: 25,
+        earnings: 25
       }
     });
     const outputAction = MovieApiActions.createMovieSuccess({

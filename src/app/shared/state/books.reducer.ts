@@ -1,5 +1,5 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Book } from 'src/app/shared/models/book.model';
+import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
+import { Book } from "src/app/shared/models/book.model";
 
 const initialBooks: Book[] = [
   {
@@ -19,11 +19,13 @@ const initialBooks: Book[] = [
     name: "The Return of The King",
     earnings: 400000000,
     description: "The end"
-  },
+  }
 ];
 
 const createBook = (books: Book[], book: Book) => [...books, book];
-const updateBook = (books: Book[], book: Book) => books.map(w => {
-  return w.id === book.id ? Object.assign({}, book) : w;
-});
-const deleteBook = (books: Book[], book: Book) => books.filter(w => book.id !== w.id);
+const updateBook = (books: Book[], book: Book) =>
+  books.map(w => {
+    return w.id === book.id ? Object.assign({}, book) : w;
+  });
+const deleteBook = (books: Book[], book: Book) =>
+  books.filter(w => book.id !== w.id);

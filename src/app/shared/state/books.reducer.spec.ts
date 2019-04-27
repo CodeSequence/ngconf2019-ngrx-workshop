@@ -3,7 +3,5 @@
 // import { reducer, initialState } from "./book.reducer";
 
 describe("Books Reducer", () => {
-  it("should return the initial state when initialized", () => {
-
-  });
+  it("should return the initial state when initialized", () => {});
 });

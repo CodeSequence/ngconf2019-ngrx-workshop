@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Book } from 'src/app/shared/models/book.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Book } from "src/app/shared/models/book.model";
+import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
-  selector: 'app-book-detail',
-  templateUrl: './book-detail.component.html',
-  styleUrls: ['./book-detail.component.css']
+  selector: "app-book-detail",
+  templateUrl: "./book-detail.component.html",
+  styleUrls: ["./book-detail.component.css"]
 })
 export class BookDetailComponent {
   originalBook: Book | undefined;
@@ -13,9 +13,9 @@ export class BookDetailComponent {
   @Output() cancel = new EventEmitter();
 
   bookForm = new FormGroup({
-    name: new FormControl(''),
+    name: new FormControl(""),
     earnings: new FormControl(0),
-    description: new FormControl('')
+    description: new FormControl("")
   });
 
   @Input() set book(book: Book) {

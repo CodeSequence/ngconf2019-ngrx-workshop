@@ -6,15 +6,23 @@
   </mat-card-header>
   <mat-card-content>
     <mat-list>
-      <mat-list-item *ngFor="let movie of movies" (click)="select.emit(movie)" class="record">
-        <h3 mat-line>{{movie.name}}</h3>
+      <mat-list-item
+        *ngFor="let movie of movies"
+        (click)="select.emit(movie)"
+        class="record"
+      >
+        <h3 mat-line>{{ movie.name }}</h3>
         <p mat-line>
-          {{movie.description}}
+          {{ movie.description }}
         </p>
         <p>
-          {{movie.earnings | currency}}
+          {{ movie.earnings | currency }}
         </p>
-        <button *ngIf="!readonly" mat-icon-button (click)="delete.emit(movie);$event.stopImmediatePropagation();">
+        <button
+          *ngIf="!readonly"
+          mat-icon-button
+          (click)="delete.emit(movie); $event.stopImmediatePropagation()"
+        >
           <mat-icon>close</mat-icon>
         </button>
       </mat-list-item>
